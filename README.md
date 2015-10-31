@@ -44,7 +44,7 @@ jay_z = Artist.new("Jay-Z")
 99_problems.artist = jay_z
 
 99_problems.artist.name
-  => "Jay-Z"
+  # => "Jay-Z"
 ```
 
 The benefit here is that in setting the `artist=()` method equal to a real instance of the `Artist` class, instead of equal to a simple string, we are associating our song to a robust object that has its own attributes and behaviors. 
@@ -147,7 +147,7 @@ Let's try it out:
 
 ```ruby
 jay_z.songs
-  => ["99 Problems", "Crazy in Love"]
+  # => ["99 Problems", "Crazy in Love"]
 ```
 
 ### Relating Objects with "belongs to" and "has many"
@@ -168,7 +168,7 @@ jay_z.add_song(99_problems)
 jay_z.add_song(crazy_in_love)
 
 jay_z.songs
-  =>[#<Song:0x007fa96a878348 @name="99 Problems", @genre="rap">, #<Song:0x007fa96a122580 @name="Crazy in Love", @genre="pop">]
+  # =>[#<Song:0x007fa96a878348 @name="99 Problems", @genre="rap">, #<Song:0x007fa96a122580 @name="Crazy in Love", @genre="pop">]
 ```
 
 Great, now our artist has many songs that are real, tangible `Song` instances, not just strings. 
@@ -179,7 +179,7 @@ We can do a number of useful things with this collection of real song objects, s
 jay_z.songs.collect do |song|
 	song.genre
 end
-  => ["rap", "pop"]
+  # => ["rap", "pop"]
 ```
 
 #### Object Reciprocity
@@ -188,7 +188,7 @@ Now that we can ask our given artist for his songs, let's make sure that we can 
 
 ```ruby
 crazy_in_love.artist
-  => nil
+  # => nil
 ```
 
 Although we do have an `attr_accessor` for `artist` in our `Song` class, this particular song doesn't seem to know that it belongs to Jay-Z. That is because our `#add_song` method only accomplished associating the song object to the artist object. Our artist knows it has a collection of songs and knows how to add songs to that collection. But, we didn't tell the song that we added to the artist that it belonged to that artist. 
@@ -237,7 +237,7 @@ Now, we should be able to ask `crazy_in_love` for it's artist:
 
 ```ruby
 crazy_in_love.artist.name
-  => "Jay-Z"
+  # => "Jay-Z"
 ```
 
 We did it! Not only does an artist have many songs, but a song belongs to an artist and we built a method that enacts those associations at the appropriate time. 
@@ -275,7 +275,7 @@ Currently, to access the name of a given song's artist, we have to chain our met
 
 ```ruby
 crazy_in_love.artist.name
-  => "Jay-Z"
+  # => "Jay-Z"
 ```
 
 That's not very elegant. Wouldn't it be nice if we have one simple and descriptive method that could return the name of a given song's artist? Let's build one!
@@ -293,7 +293,7 @@ Now we can call:
 
 ```ruby
 crazy_in_love.artist_name
-  => "Jay-Z"
+  # => "Jay-Z"
 ```
 
 Much better. Notice that we used the `self` keyword inside the `#artist_name` method to refer to the instance of `Song` on which the method is being called. Then we call `#artist` on that song instance. This would return the `Artist` instance associated to the song. Chaining a call to `#name` after that is equivalent to saying: call `#name` on the return value of `self.artist`, i.e. call `#name` on the artist of this song. 
