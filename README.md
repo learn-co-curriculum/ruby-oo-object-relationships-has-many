@@ -26,7 +26,7 @@ If we also have an `Artist` class that looks like this:
 
 ```ruby
 class Artist
-	attr_accessor :name, genre
+	attr_accessor :name, :genre
 	
 	def initialize(name, genre)
 		@name = name
@@ -47,7 +47,7 @@ jay_z = Artist.new("Jay-Z")
   => "Jay-Z"
 ```
 
-The benefit here is that in setting the `artist=()` method equal to a real instance of the `Artist` class, instead of equal to a simple string, we are associating our song to robust object that has it's own attributes and behaviors. 
+The benefit here is that in setting the `artist=()` method equal to a real instance of the `Artist` class, instead of equal to a simple string, we are associating our song to a robust object that has its own attributes and behaviors. 
 
 For example, in the code above, we are calling the `#name` method on the artist of `99_problems`. With method chaining like this, we can do even more with our code. 
 
