@@ -132,16 +132,16 @@ class Artist
 	end
 	
 	def add_song(song)
-		@songs << song
+	  @songs << song
 	end
 	
 	def songs
-		@@songs 
+	  @songs 
 	end
 end
 ``` 
 
-The `#songs` method simply return the `@@songs` array, which contains the list of songs that the artist has many of. 
+The `#songs` method simply return the `@songs` array, which contains the list of songs that the artist has many of. 
 
 Let's try it out:
 
