@@ -1,5 +1,7 @@
 tags:
-  - tag1
+  - object relations
+  - has many
+  - belongs to
 languages:
-  - language1
+  - Ruby
 resources: 0
