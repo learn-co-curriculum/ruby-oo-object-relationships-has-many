@@ -26,11 +26,10 @@ If we also have an `Artist` class that looks like this:
 
 ```ruby
 class Artist
-	attr_accessor :name, :genre
+	attr_accessor :name
 	
-	def initialize(name, genre)
+	def initialize(name)
 		@name = name
-		@genre = genre
 	end
 end
 ```
