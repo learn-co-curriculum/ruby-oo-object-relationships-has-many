@@ -8,7 +8,7 @@
 
 ## Introduction
 
-We know that the programs we write are meant to model real-world environments. This is because the programs we write are designed to carry out real-world jobs and solve real-world problems. Whether your creating an app that connects users around the world in some kind of social network or writing a program for a major university that managers their course offerings and students, your code will need to be able to realistically map the relationships between different entities. 
+We know that the programs we write are meant to model real-world environments. This is because the programs we write are designed to carry out real-world jobs and solve real-world problems. Whether you're creating an app that connects users around the world in some kind of social network or writing a program for a major university that manages their course offerings and students, your code will need to be able to realistically map the relationships between different entities. 
 
 We already know about the "belongs to" relationship. Let's say we have a `Song` class that produces individual song objects. Each song belongs to the artist that wrote it. We can build that relationship by creating an `attr_accessor` in the `Song` class for `artist`:
 
@@ -50,7 +50,7 @@ The benefit here is that in setting the `artist=()` method equal to a real insta
 
 For example, in the code above, we are calling the `#name` method on the artist of `99_problems`. With method chaining like this, we can do even more with our code. 
 
-The inverse of the "belongs to" relationship is the "has many" relationship. If a song belongs to an artist, then an artist should be able to have many songs. This makes sense in the real-world––most musical artists have authored and preformed many more than one song. 
+The inverse of the "belongs to" relationship is the "has many" relationship. If a song belongs to an artist, then an artist should be able to have many songs. This makes sense in the real-world––most musical artists have authored and performed many more than one song. 
 
 Let's take a closer look. 
 
