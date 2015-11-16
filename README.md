@@ -247,7 +247,7 @@ The code we have so far is pretty good. The best thing about it though, is that 
 
 ### The `#add_song_by_name` Method
 
-As it currently stands, we have to *first* create a song and *then* add it to a given artists collection of songs. We are lazy programmers, if we could combine these two steps, that would make us happy. Further more, if you think about our domain model, i.e. the program we are writing to model the real-world environment of an artist and his or her songs, the current need to create a song and then add it to an artist doesn't really make sense. A song doesn't exist *before* an artist creates it. 
+As it currently stands, we have to *first* create a song and *then* add it to a given artists collection of songs. We are lazy programmers, if we could combine these two steps, that would make us happy. Furthermore, if you think about our domain model, i.e. the program we are writing to model the real-world environment of an artist and his or her songs, the current need to create a song and then add it to an artist doesn't really make sense. A song doesn't exist *before* an artist creates it. 
 
 Instead, let's build a method `#add_song_by_name`, that takes in an argument of a name and genre and both creates the new song *and* adds that song to the artist's collection. 
 
