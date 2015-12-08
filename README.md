@@ -155,7 +155,7 @@ Wow, those look like interesting songs, you might be thinking. I wonder what kin
 
 Oh no! We can't do that because `jay_z`'s songs are simply a list of strings. We can't ask a plain old string what genre it has, it will have no idea what we are talking about. 
 
-This is the limitation of one-sided relationships. Just like associating a given song to a string that contains an artist's name instead of to a real `Artist` instance had it's drawbacks, so to does associated a given artist to a list of strings. With this set up, we are limited to refers to a given artist's songs by their name alone. We cannot associate any further information to an artist's songs or enact any further behavior on an artist's songs. 
+This is the limitation of one-sided relationships. Just like associating a given song to a string that contains an artist's name instead of to a real `Artist` instance had it's drawbacks, so to does associated a given artist to a list of strings. With this set up, we are limited to references to a given artist's songs by their name alone. We cannot associate any further information to an artist's songs or enact any further behavior on an artist's songs. 
 
 Let's fix this now. Instead of calling the `#add_song`  method with an argument of a string, let's call that method with an argument of a real song object:
 
