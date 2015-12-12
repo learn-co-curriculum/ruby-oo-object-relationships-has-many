@@ -155,7 +155,7 @@ Wow, those look like interesting songs, you might be thinking. I wonder what kin
 
 Oh no! We can't do that because `jay_z`'s songs are simply a list of strings. We can't ask a plain old string what genre it has, it will have no idea what we are talking about. 
 
-This is the limitation of one-sided relationships. Just like associating a given song to a string that contains an artist's name instead of to a real `Artist` instance had it's drawbacks, so to does associated a given artist to a list of strings. With this set up, we are limited to references to a given artist's songs by their name alone. We cannot associate any further information to an artist's songs or enact any further behavior on an artist's songs. 
+This is the limitation of one-sided relationships. Just like associating a given song to a string that contains an artist's name instead of to a real `Artist` instance had its drawbacks, so too does associating a given artist to a list of strings. With this set up, we are limited to references to a given artist's songs by their name alone. We cannot associate any further information to an artist's songs or enact any further behavior on an artist's songs. 
 
 Let's fix this now. Instead of calling the `#add_song`  method with an argument of a string, let's call that method with an argument of a real song object:
 
@@ -183,7 +183,7 @@ end
 
 #### Object Reciprocity
 
-Now that we can ask our given artist for his songs, let's make sure that we can ask an individual song for it's artist:
+Now that we can ask our given artist for his songs, let's make sure that we can ask an individual song for its artist:
 
 ```ruby
 crazy_in_love.artist
@@ -232,7 +232,7 @@ Let's try calling `#add_song` again:
 jay_z.add_song(crazy_in_love)
 ```
 
-Now, we should be able to ask `crazy_in_love` for it's artist:
+Now, we should be able to ask `crazy_in_love` for its artist:
 
 ```ruby
 crazy_in_love.artist.name
@@ -247,7 +247,7 @@ The code we have so far is pretty good. The best thing about it though, is that 
 
 ### The `#add_song_by_name` Method
 
-As it currently stands, we have to *first* create a song and *then* add it to a given artists collection of songs. We are lazy programmers, if we could combine these two steps, that would make us happy. Furthermore, if you think about our domain model, i.e. the program we are writing to model the real-world environment of an artist and his or her songs, the current need to create a song and then add it to an artist doesn't really make sense. A song doesn't exist *before* an artist creates it. 
+As it currently stands, we have to *first* create a song and *then* add it to a given artists collection of songs. We are lazy programmers, if we could combine these two steps, that would make us happy. Furthermore, if you think about our domain model, i.e. the program we are writing to model the real-world environment of an artist and their songs, the current need to create a song and then add it to an artist doesn't really make sense. A song doesn't exist *before* an artist creates it. 
 
 Instead, let's build a method `#add_song_by_name`, that takes in an argument of a name and genre and both creates the new song *and* adds that song to the artist's collection. 
 
@@ -298,3 +298,5 @@ crazy_in_love.artist_name
 Much better. Notice that we used the `self` keyword inside the `#artist_name` method to refer to the instance of `Song` on which the method is being called. Then we call `#artist` on that song instance. This would return the `Artist` instance associated to the song. Chaining a call to `#name` after that is equivalent to saying: call `#name` on the return value of `self.artist`, i.e. call `#name` on the artist of this song. 
 
 These are only a few of the ways in which you can extend, or build on, the foundational has many and belongs to associations. 
+
+<a href='https://learn.co/lessons/ruby-objects-has-many-readme' data-visibility='hidden'>View this lesson on Learn.co</a>
