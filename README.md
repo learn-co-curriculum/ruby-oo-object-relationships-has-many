@@ -37,18 +37,18 @@ end
 We can set an individual instance of `Song` equal to an instance of the `Artist` class like this:
 
 ```ruby
-99_problems = Song.new("99 Problems")
+ninetynine_problems = Song.new("99 Problems")
 jay_z = Artist.new("Jay-Z")
 
-99_problems.artist = jay_z
+ninetynine_problems.artist = jay_z
 
-99_problems.artist.name
+ninetynine_problems.artist.name
   # => "Jay-Z"
 ```
 
 The benefit here is that in setting the `artist=()` method equal to a real instance of the `Artist` class, instead of equal to a simple string, we are associating our song to a robust object that has its own attributes and behaviors. 
 
-For example, in the code above, we are calling the `#name` method on the artist of `99_problems`. With method chaining like this, we can do even more with our code. 
+For example, in the code above, we are calling the `#name` method on the artist of `ninetynine_problems`. With method chaining like this, we can do even more with our code. 
 
 The inverse of the "belongs to" relationship is the "has many" relationship. If a song belongs to an artist, then an artist should be able to have many songs. This makes sense in the real-world––most musical artists have authored and performed many more than one song. 
 
