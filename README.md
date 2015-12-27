@@ -86,7 +86,7 @@ Let's write the method that will allow us to add some.
 
 ### Adding items to the collection
 
-Whose responsibility is it to add a new song to a given artist's collection? Well, at what point in time does an artist add another song to his or her repetoir? When that artist writes a new song. Consequently, it isn't the song's responsibility to add itself to the artist's collection of songs, it is the artist's responsibility to add a new song to their collection. 
+Whose responsibility is it to add a new song to a given artist's collection? Well, at what point in time does an artist add another song to his or her repertoire? When that artist writes a new song. Consequently, it isn't the song's responsibility to add itself to the artist's collection of songs, it is the artist's responsibility to add a new song to their collection. 
 
 That's why we'll write the method that adds songs to an artist's collection in the `Artist` class:
 
