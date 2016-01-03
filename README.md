@@ -3,7 +3,7 @@
 ## Objectives
 
 1. Understand the concept of the "has many" relationship between Ruby objects. 
-2. Learn how to build class that produce objects with a belongs to and has many relationship. 
+2. Learn how to build classes that produce objects with a belongs to and has many relationship. 
 3. Understand why we need to associate objects in this way. 
 
 ## Introduction
