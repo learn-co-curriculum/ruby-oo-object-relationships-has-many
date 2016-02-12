@@ -151,7 +151,7 @@ jay_z.songs
 
 ### Relating Objects with "belongs to" and "has many"
 
-Wow, those look like interesting songs, you might be thinking. I wonder what kind of music Jay-Z makes, you might be wondering if you live on Mars. Well, let's ask `jay_z` to tell us the genres of the songs he has many of. 
+Wow, those look like interesting songs, you might be thinking, "I wonder what kind of music Jay-Z makes". You might be wondering if you live on Mars. Well, let's ask `jay_z` to tell us the genres of the songs he has many of. 
 
 Oh no! We can't do that because `jay_z`'s songs are simply a list of strings. We can't ask a plain old string what genre it has, it will have no idea what we are talking about. 
 
@@ -300,3 +300,5 @@ Much better. Notice that we used the `self` keyword inside the `#artist_name` me
 These are only a few of the ways in which you can extend, or build on, the foundational has many and belongs to associations. 
 
 <p data-visibility='hidden'>View <a href='https://learn.co/lessons/ruby-objects-has-many-readme' title='Ruby Objects: The "Has Many" Relationship'>Ruby Objects: The "Has Many" Relationship</a> on Learn.co and start learning to code for free.</p>
+
+<p data-visibility='hidden'>View <a href='https://learn.co/lessons/ruby-objects-has-many-readme'>Has Many Object</a> on Learn.co and start learning to code for free.</p>
