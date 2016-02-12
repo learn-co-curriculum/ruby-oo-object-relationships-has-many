@@ -14,7 +14,7 @@ We already know about the "belongs to" relationship. Let's say we have a `Song` 
 
 ```ruby
 class Song
-	attr_accessor :artist, :name
+	attr_accessor :artist, :name, :genre
 	
 	def initialize(name)
 		@name = name
