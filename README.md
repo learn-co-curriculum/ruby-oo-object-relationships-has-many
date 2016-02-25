@@ -160,7 +160,7 @@ This is the limitation of one-sided relationships. Just like associating a given
 Let's fix this now. Instead of calling the `#add_song`  method with an argument of a string, let's call that method with an argument of a real song object:
 
 ```ruby
-99_problems = Song.new("99 Problems", "rap")
+ninetynine_problems = Song.new("99 Problems", "rap")
 crazy_in_love = Song.new("Crazy in Love", "pop")
 
 jay_z.add_song(99_problems)
