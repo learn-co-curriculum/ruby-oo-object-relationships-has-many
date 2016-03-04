@@ -243,7 +243,7 @@ We did it! Not only does an artist have many songs, but a song belongs to an art
 
 ## Extending the Association and Cleaning up our Code
 
-The code we have so far is pretty good. The best thing about it though, is that it accommodates future change. We've build solid associations between our `Artist` and `Song` class via our has many/belongs to code. With this foundation we can make our code even better in the following ways:
+The code we have so far is pretty good. The best thing about it though, is that it accommodates future change. We've built solid associations between our `Artist` and `Song` class via our has many/belongs to code. With this foundation we can make our code even better in the following ways:
 
 ### The `#add_song_by_name` Method
 
