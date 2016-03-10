@@ -163,7 +163,7 @@ Let's fix this now. Instead of calling the `#add_song`  method with an argument 
 ninetynine_problems = Song.new("99 Problems", "rap")
 crazy_in_love = Song.new("Crazy in Love", "pop")
 
-jay_z.add_song(99_problems)
+jay_z.add_song(ninetynine_problems)
 jay_z.add_song(crazy_in_love)
 
 jay_z.songs
