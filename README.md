@@ -192,7 +192,7 @@ crazy_in_love.artist
 
 Although we do have an `attr_accessor` for `artist` in our `Song` class, this particular song doesn't seem to know that it belongs to Jay-Z. That is because our `#add_song` method only accomplished associating the song object to the artist object. Our artist knows it has a collection of songs and knows how to add songs to that collection. But, we didn't tell the song that we added to the artist that it belonged to that artist. 
 
-Let's fix that now. Telling a song that it belongs to an artist should happen when that song is added to the artist's `@songs` collection. Consequently, we will write the code the accomplishes this inside our `#add_song` method:
+Let's fix that now. Telling a song that it belongs to an artist should happen when that song is added to the artist's `@songs` collection. Consequently, we will write the code that accomplishes this inside our `#add_song` method:
 
 ```ruby
 class Artist
