@@ -16,8 +16,9 @@ We already know about the "belongs to" relationship. Let's say we have a `Song` 
 class Song
 	attr_accessor :artist, :name, :genre
 	
-	def initialize(name)
-		@name = name
+	def initialize(name, genre)
+	  @name = name
+   @genre = genre
 	end
 end
 ```
@@ -302,3 +303,5 @@ These are only a few of the ways in which you can extend, or build on, the found
 <p data-visibility='hidden'>View <a href='https://learn.co/lessons/ruby-objects-has-many-readme' title='Ruby Objects: The "Has Many" Relationship'>Ruby Objects: The "Has Many" Relationship</a> on Learn.co and start learning to code for free.</p>
 
 <p data-visibility='hidden'>View <a href='https://learn.co/lessons/ruby-objects-has-many-readme'>Has Many Object</a> on Learn.co and start learning to code for free.</p>
+
+<p class='util--hide'>View <a href='https://learn.co/lessons/ruby-objects-has-many-readme'>Has Many Object</a> on Learn.co and start learning to code for free.</p>
