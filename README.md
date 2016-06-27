@@ -16,8 +16,9 @@ We already know about the "belongs to" relationship. Let's say we have a `Song` 
 class Song
 	attr_accessor :artist, :name, :genre
 	
-	def initialize(name)
-		@name = name
+	def initialize(name, genre)
+    @name = name
+    @genre = genre
 	end
 end
 ```
