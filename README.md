@@ -47,7 +47,7 @@ ninetynine_problems.artist.name
   # => "Jay-Z"
 ```
 
-The benefit here is that in setting the `artist=()` method equal to a real instance of the `Artist` class, instead of equal to a simple string, we are associating our song to a robust object that has its own attributes and behaviors. 
+The benefit here is that in setting the `artist=` method equal to a real instance of the `Artist` class, instead of equal to a simple string, we are associating our song to a robust object that has its own attributes and behaviors.
 
 For example, in the code above, we are calling the `#name` method on the artist of `ninetynine_problems`. With method chaining like this, we can do even more with our code. 
 
@@ -225,7 +225,7 @@ def add_song(song)
 end
 ```
 
-Here, we use the `self` keyword to refer to the artist on which we are calling this method. We call the `#artist=()` method on the song that is being passed in as an argument and set it equal to `self`––the artist. 
+Here, we use the `self` keyword to refer to the artist on which we are calling this method. We call the `#artist=` method on the song that is being passed in as an argument and set it equal to `self`––the artist.
 
 Let's try calling `#add_song` again:
 
