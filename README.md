@@ -38,7 +38,7 @@ end
 We can set an individual instance of `Song` equal to an instance of the `Artist` class like this:
 
 ```ruby
-ninetynine_problems = Song.new("99 Problems")
+ninetynine_problems = Song.new("99 Problems", "rap")
 jay_z = Artist.new("Jay-Z")
 
 ninetynine_problems.artist = jay_z
