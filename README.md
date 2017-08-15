@@ -151,7 +151,7 @@ jay_z.songs
 
 "Wow, those look like interesting songs," you might be thinking. "I wonder what kind of music Jay-Z makes." Well, let's ask `jay_z` to tell us the genres of the songs he has many of.
 
-Oh no! We can't do that because `jay_z`'s songs are simply a list of strings. We can't ask a plain old string what genre it has, it will have no idea what we are talking about.
+Oh no! We can't do that because `jay_z`'s songs are simply a list of strings. We can't ask a plain old string what genre it has—it will have no idea what we are talking about.
 
 This is the limitation of one-sided relationships. Just like associating a given song to a string that contains an artist's name instead of to a real `Artist` instance had its drawbacks, so too does associating a given artist to a list of strings. With this set up, we are limited to references to a given artist's songs by their name alone. We cannot associate any further information to an artist's songs or enact any further behavior on an artist's songs.
 
