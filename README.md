@@ -1,9 +1,9 @@
-# Ruby Objects: The "Has Many" Relationship
+# Ruby Objects: The "Has-Many" Relationship
 
 ## Objectives
 
 - Describe the "has many" relationship between Ruby objects.
-- Build classes that produce objects with a `belongs_to` and `has_many` relationship.
+- Build classes that produce objects with a "belongs-to" and "has-many" relationship.
 - Explain why we need to associate objects in this way.
 
 ## Introduction
@@ -16,7 +16,7 @@ major university that manages their course offerings and students, your code
 will need to be able to realistically map the relationships between different
 entities.
 
-We already know about the "belongs to" relationship. Let's say we have a `Song`
+We already know about the "belongs-to" relationship. Let's say we have a `Song`
 class that produces individual song objects. Each song belongs to the artist
 that wrote it. We can build that relationship by creating an `attr_accessor` in
 the `Song` class for `artist`:
@@ -66,14 +66,14 @@ For example, in the code above, we are calling the `#name` method on the artist
 of `ninetynine_problems`. With method chaining like this, we can do even more
 with our code.
 
-The inverse of the "belongs to" relationship is the "has many" relationship. If
-a song belongs to an artist, then an artist should be able to have many songs.
+The inverse of the "belongs-to" relationship is the "has-many" relationship. If
+a song belongs to an artist, then an artist should be able to _have many_ songs.
 This makes sense in the real-world––most musical artists have authored and
 performed many more than one song.
 
 Let's take a closer look.
 
-## The "has many" Relationship
+## The "has-many" Relationship
 
 How can we represent an object's "having many" of something? Well, having many
 of something means you own a collection of that thing. Ruby offers us a great
@@ -89,7 +89,7 @@ And have returned to us a list, or array, of the songs that Jay-Z has written. A
 given artist should start, or be initialized, with a songs collection that is
 empty. Later, we will write a method that adds songs to that collection.
 
-### Initializing with an empty collection
+### Initializing with an Empty Collection
 
 ```ruby
 class Artist
@@ -349,7 +349,9 @@ crazy_in_love.artist.name
   # => "Jay-Z"
 ```
 
-That's not very elegant. Wouldn't it be nice if we have one simple and
+We can imagine knowing the name of an artist that a particular song belongs to
+would be helpful and probably used in mulitple situations. Rather than having to
+chain multiple methods, wouldn't it be nice if we have one simple and
 descriptive method that could return the name of a given song's artist? Let's
 build one!
 
@@ -376,7 +378,17 @@ instance associated with the song. Chaining a call to `#name` after that is
 equivalent to saying: call `#name` on the return value of `self.artist`, i.e.
 call `#name` on the artist of this song.
 
-These are only a few of the ways in which you can extend, or build on, the
-foundational has many and belongs to associations.
+## Conclusion
+
+Using the foundation of a "has-many" / "belongs-to" associations, we can create
+many different useful methods. We can write methods like `add_song_by_name`
+that handle initializing and associating instances. We can also create methods
+like `artist_name`, that can simplify retrieving information from an associated
+instance.
+
+Establishing both "has-many" and "belongs-to" associations between two objects
+allows us to ask a song who its artist is, and ask an artist what their songs
+are. We've established a bi-directional relationship! Can you think of any other
+real world relationships where these associations could be applied?
 
 <p class='util--hide'>View <a href='https://learn.co/lessons/ruby-objects-has-many-readme'>Has Many Object</a> on Learn.co and start learning to code for free.</p>
