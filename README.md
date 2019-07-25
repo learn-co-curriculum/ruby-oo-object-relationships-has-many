@@ -295,6 +295,180 @@ We did it! Not only does an artist have many songs, but a song belongs to an
 artist and we built a method that enacts those associations at the appropriate
 time.
 
+## Maintaining a Single Source of Truth
+
+The `#add_song` method works, but look at it again and see if you might be able
+to find a flaw in this setup:
+
+```ruby
+def add_song(song)
+  @songs << song
+  song.artist = self
+end
+```
+
+With this implementation, we're maintaining this relationship on both the `Song`
+instance and the `Artist` instance. We've done this so that an artist knows
+which songs it has, and a song knows the artist it belongs to. However, keeping
+this information maintained on both sides of the relationship means there are
+**_two sources of truth_**. What happens if we _don't_ consistently use the
+`add_song` method? What if, instead, somewhere along the lines we did something
+like this:
+
+```ruby
+lil_nas_x = Artist.new("Lil Nas X")
+old_town_road = Song.new("Old Town Road","hip-hop")
+
+old_town_road.artist = lil_nas_x
+
+old_town_road.artist.name #=> "Lil Nas X"
+lil_nas_x.songs #=> []
+```
+
+Now, the `Song` instance `old_town_road` is associated with an artist, but
+`lil_nas_x` **_does not know about_** `old_town_road`. We have multiple sources
+of truth about artists and their songs, and they're not aligned.
+
+A better way to approach this would be to figure out how to maintain our
+"has-many" / "belongs-to" relationship _on only one side of the relationship_.
+
+Think about it this way - imagine we have many artists, each with their own
+songs. Rather than have each artist keep track of their own songs, if we had
+access to a list of _all of the songs by all artists_, we could just query that
+list by asking for all songs that belong to a given artist.
+
+This may become clearer if we make some updates to `Song` and `Artist`. Say, for
+instance, in `Song`, we set up a class variable, `@@all`, set to an empty Array,
+and a getter method, `.all`. This way, when a song is initialized, we can push
+the instance into the `@@all` and be able to use `Song.all` to retrieve all
+`Song` instances:
+
+```ruby
+class Song
+  attr_accessor :artist, :name, :genre
+
+  @@all = []
+
+  def initialize(name, genre)
+    @name = name
+    @genre = genre
+    save
+  end
+
+  def save
+    @@all << self
+  end
+
+  def self.all
+    @@all
+  end
+end
+```
+
+Okay, so now that we can get all songs, we should be able to do things like
+this:
+
+```ruby
+lil_nas_x = Artist.new("Lil Nas X")
+rick = Artist.new("Rick Astley")
+
+old_town_road = Song.new("Old Town Road","hip-hop")
+never_gonna_give_you_up = Song.new("Never Gonna Give You Up","pop")
+
+old_town_road.artist = lil_nas_x
+never_gonna_give_you_up.artist = rick
+
+Song.all.first.name #=> "Old Town Road"
+Song.all.first.genre #=> "hip-hop"
+Song.all.first.artist #=> #<Artist:0x00007ff1d90dbf38 @name="Lil Nas X", @songs=[]>
+Song.all.first.artist.name #=> "Lil Nas X"
+
+
+Song.all.last.name #=> "Never Gonna Give You Up"
+Song.all.last.genre #=> "pop"
+Song.all.last.artist #=> #<Artist:0x00007ff1d90dbf38 @name="Rick Astley", @songs=[]>
+Song.all.last.artist.name #=> "Rick Astley"
+```
+
+Now that we've got a way to get all songs, if we make sure to let every song
+know its artist, if we want to find all the songs that belong to a particular
+artist, we can just _select_ the appropriate songs:
+
+```ruby
+Song.all.select {|song| song.artist == lil_nas_x}
+#=> [#<Song:0x00007ff1da1d3228 @name="Old Town Road", @genre="hip-hop", @artist=#<Artist:0x00007ff1d90dbf38 @name="Lil Nas X", @songs=[]>>]
+
+Song.all.select {|song| song.artist == rick}
+#=> [#<Song:0x00007ff1da87bc38 @name="Never Gonna Give You Up", @genre="pop", @artist=#<Artist:0x00007ff1da20b150 @name="Rick Astley", @songs=[]>>]
+```
+
+So, with `Song.all`, if we have an `Artist` instance like `lil_nas_x` or `rick`,
+we can retrieve all the songs associated with an artist. We can incorporate this
+directly into our `Artist` class, replacing the implementation of the `#songs`
+method so that it _selects_ instead of returning the `@songs` instance variable:
+
+```ruby
+class Artist
+  ...
+
+  def songs
+    Song.all.select {|song| song.artist == self}
+  end
+end
+```
+
+This is an instance method, so we can use `self` to represent the `Artist`
+instance this method is called on. This changes the rest of the class - if we
+can just get the necessary information selecting from `Song.all`, we no longer
+need the `@songs` instance variable in our `Artist` class. We can get rid of
+We can also update `#add_song` accordingly:
+
+```ruby
+class Artist
+  attr_accessor :name
+
+  def initialize(name)
+    @name = name
+  end
+
+  def add_song(song)
+    song.artist = self
+  end
+
+  def songs
+    Song.all.select {|song| song.artist == self}
+  end
+end
+```
+
+With this implementation, we're able to achieve a "has-many" / "belongs-to"
+relationship while maintaining a single source of truth! Not only that, we were
+able to simplify the `Artist` class without losing any functionality!
+
+Now, let's go back to the original example in this section. With our new setup,
+the issue of maintaining both sides of the relationship is solved:
+
+```ruby
+lil_nas_x = Artist.new("Lil Nas X")
+old_town_road = Song.new("Old Town Road","hip-hop")
+
+old_town_road.artist = lil_nas_x
+
+old_town_road.artist.name #=> "Lil Nas X"
+lil_nas_x.songs #=> [#<Song:0x00007fb46b0a1c08 @name="Old Town Road", @genre="hip-hop", @artist=#<Artist:0x00007fb46b0e3748 @name="Lil Nas X">>]
+```
+
+And `add_song` functions just as it did before:
+
+```ruby
+rick = Artist.new("Rick Astley")
+never_gonna_give_you_up = Song.new("Never Gonna Give You Up","pop")
+rick.add_song(never_gonna_give_you_up)
+
+rick.songs #=> [#<Song:0x00007fb46b0b97b8 @name="Never Gonna Give You Up", @genre="pop", @artist=#<Artist:0x00007fb46a903000 @name="Rick Astley">>]
+never_gonna_give_you_up.artist #=> #<Artist:0x00007fb46a903000 @name="Rick Astley">
+```
+
 ## Extending the Association and Cleaning up our Code
 
 The code we have so far is pretty good. The best thing about it though is that
@@ -322,7 +496,6 @@ class Artist
 
   def add_song_by_name(name, genre)
     song = Song.new(name, genre)
-    @songs << song
     song.artist = self
   end
 ```
