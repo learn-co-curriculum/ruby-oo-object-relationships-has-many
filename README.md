@@ -48,13 +48,13 @@ We can set an individual instance of `Song` equal to an instance of the `Artist`
 class like this:
 
 ```ruby
-ninetynine_problems = Song.new("99 Problems", "rap")
-jay_z = Artist.new("Jay-Z")
+kiki = Song.new("In My Feelings", "hip-hop")
+drake = Artist.new("Drake")
 
-ninetynine_problems.artist = jay_z
+kiki.artist = drake
 
-ninetynine_problems.artist.name
-  # => "Jay-Z"
+kiki.artist.name
+  # => "Drake"
 ```
 
 The benefit here is that in setting the `artist=` method equal to a real
@@ -63,7 +63,7 @@ associating our song to a robust object that has its own attributes and
 behaviors.
 
 For example, in the code above, we are calling the `#name` method on the artist
-of `ninetynine_problems`. With method chaining like this, we can do even more
+of `kiki`. With method chaining like this, we can do even more
 with our code.
 
 The inverse of the "belongs-to" relationship is the "has-many" relationship. If
@@ -82,10 +82,10 @@ way to store collections of data in list form: arrays.
 We would like to be able to call:
 
 ```ruby
-jay_z.songs
+drake.songs
 ```
 
-And have returned to us a list, or array, of the songs that Jay-Z has written. A
+And have returned to us a list, or array, of the songs that Drake has written. A
 given artist should start, or be initialized, with a songs collection that is
 empty. Later, we will write a method that adds songs to that collection.
 
@@ -138,9 +138,9 @@ end
 Now we can execute the following code:
 
 ```ruby
-jay_z = Artist.new("Jay-Z")
-jay_z.add_song("99 Problems")
-jay_z.add_song("Crazy in Love")
+drake = Artist.new("Drake")
+drake.add_song("In My Feelings")
+drake.add_song("Hotline Bling")
 ```
 
 Now we need a method that will allow a given artist to show us all of the songs
@@ -176,17 +176,17 @@ songs that the artist has many of.
 Let's try it out:
 
 ```ruby
-jay_z.songs
-  # => ["99 Problems", "Crazy in Love"]
+drake.songs
+  # => ["In My Feelings", "Hotline Bling"]
 ```
 
 ### Relating Objects with "belongs to" and "has many"
 
 "Wow, those look like interesting songs," you might be thinking. "I wonder what
-kind of music Jay-Z makes." Well, let's ask `jay_z` to tell us the genres of the
+kind of music Drake makes." Well, let's ask `drake` to tell us the genres of the
 songs he has many of.
 
-Oh no! We can't do that because `jay_z`'s songs are simply a list of strings. We
+Oh no! We can't do that because `drake`'s songs are simply a list of strings. We
 can't ask a plain old string what genre it has—it will have no idea what we are
 talking about.
 
@@ -201,14 +201,14 @@ Let's fix this now. Instead of calling the `#add_song`  method with an argument
 of a string, let's call that method with an argument of a real song object:
 
 ```ruby
-ninetynine_problems = Song.new("99 Problems", "rap")
-crazy_in_love = Song.new("Crazy in Love", "pop")
+kiki = Song.new("In My Feelings", "hip-hop")
+hotline = Song.new("Hotline Bling", "pop")
 
-jay_z.add_song(ninetynine_problems)
-jay_z.add_song(crazy_in_love)
+drake.add_song(kiki)
+drake.add_song(hotline)
 
-jay_z.songs
-  # =>[#<Song:0x007fa96a878348 @name="99 Problems", @genre="rap">, #<Song:0x007fa96a122580 @name="Crazy in Love", @genre="pop">]
+drake.songs
+  # =>[#<Song:0x007fa96a878348 @name="In My Feelings", @genre="hip-hop">, #<Song:0x007fa96a122580 @name="Hotline Bling", @genre="pop">]
 ```
 
 Great, now our artist has many songs that are real, tangible `Song` instances,
@@ -218,10 +218,10 @@ We can do several useful things with this collection of real song objects,
 such as iterate over them and collect their genres:
 
 ```ruby
-jay_z.songs.collect do |song|
+drake.songs.collect do |song|
   song.genre
 end
-  # => ["rap", "pop"]
+  # => ["hip-hop", "pop"]
 ```
 
 #### Object Reciprocity
@@ -230,12 +230,12 @@ Now that we can ask our given artist for his songs, let's make sure that we can
 ask an individual song for its artist:
 
 ```ruby
-crazy_in_love.artist
+kiki.artist
   # => nil
 ```
 
 Although we do have an `attr_accessor` for `artist` in our `Song` class, this
-particular song doesn't seem to know that it belongs to Jay-Z. That is because
+particular song doesn't seem to know that it belongs to Drake. That is because
 our `#add_song` method only accomplished associating the song object to the
 artist object. Our artist knows it has a collection of songs and knows how to
 add songs to that collection. But, we didn't tell the song that we added to the
@@ -281,14 +281,14 @@ as an argument and set it equal to `self`––the artist.
 Let's try calling `#add_song` again:
 
 ```ruby
-jay_z.add_song(crazy_in_love)
+drake.add_song(kiki)
 ```
 
-Now, we should be able to ask `crazy_in_love` for its artist:
+Now, we should be able to ask `kiki` for its artist:
 
 ```ruby
-crazy_in_love.artist.name
-  # => "Jay-Z"
+kiki.artist.name
+  # => "Drake"
 ```
 
 We did it! Not only does an artist have many songs, but a song belongs to an
@@ -345,8 +345,8 @@ Currently, to access the name of a given song's artist, we have to chain our
 methods like this:
 
 ```ruby
-crazy_in_love.artist.name
-  # => "Jay-Z"
+kiki.artist.name
+  # => "Drake"
 ```
 
 We can imagine knowing the name of an artist that a particular song belongs to
@@ -367,8 +367,8 @@ class Song
 Now we can call:
 
 ```ruby
-crazy_in_love.artist_name
-  # => "Jay-Z"
+kiki.artist_name
+  # => "Drake"
 ```
 
 Much better. Notice that we used the `self` keyword inside the `#artist_name`
