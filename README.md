@@ -241,6 +241,11 @@ artist object. Our artist knows it has a collection of songs and knows how to
 add songs to that collection. But, we didn't tell the song that we added to the
 artist that it belonged to that artist.
 
+<p align="center">
+  <img src="https://curriculum-content.s3.amazonaws.com/module-1/ruby-oo-relationships/has-many/Image_138_CodeObjectsConvo%28A%29.png" alt="belongs to" width="500"/>
+</p>
+
+
 Let's fix that now. Telling a song that it belongs to an artist should happen
 when that song is added to the artist's `@songs` collection. Consequently, we
 will write the code that accomplishes this inside our `#add_song` method:
@@ -336,6 +341,10 @@ Think about it this way - imagine we have many artists, each with their own
 songs. Rather than have each artist keep track of their own songs, if we had
 access to a list of _all of the songs by all artists_, we could just query that
 list by asking for all songs that belong to a given artist.
+
+<p align="center">
+  <img src="https://curriculum-content.s3.amazonaws.com/module-1/ruby-oo-relationships/has-many/Image_138_CodeObjectsConvo%28B%29.png" alt="belongs to" width="500"/>
+</p>
 
 This may become clearer if we make some updates to `Song` and `Artist`. Say, for
 instance, in `Song`, we set up a class variable, `@@all`, set to an empty Array,
@@ -504,6 +513,10 @@ Here we use the logic of our original `#add_song` method, which adds a song to
 an artist's collection and tells that song that it belongs to that particular
 artist. But, we also create a new song using the name and genre from the
 arguments.
+
+<p align="center">
+  <img src="https://curriculum-content.s3.amazonaws.com/module-1/ruby-oo-relationships/has-many/Image_138_CodeObjectsConvo%28C%29.png" alt="belongs to" width="500"/>
+</p>
 
 This is not only neater and more elegant––now we don't have to create a new song
 on a separate line *every time* we want to add one to an artist––but it makes
