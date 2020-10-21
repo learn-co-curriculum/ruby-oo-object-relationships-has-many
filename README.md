@@ -44,8 +44,8 @@ class Artist
 end
 ```
 
-We can set an individual instance of `Song` equal to an instance of the `Artist`
-class like this:
+We can set the artist attribute of an individual instance of `Song` equal 
+to an instance of the `Artist` class like this:
 
 ```ruby
 kiki = Song.new("In My Feelings", "hip-hop")
@@ -57,23 +57,21 @@ kiki.artist.name
   # => "Drake"
 ```
 
-The benefit here is that in setting the `artist=` method equal to a real
-instance of the `Artist` class, instead of equal to a simple string, we are
-associating our song to a robust object that has its own attributes and
-behaviors.
+We could just set the `artist` attribute equal to a simple string. However, 
+by using the `artist=` method to set the attribute equal to a real instance 
+of the `Artist` class, we are associating our song to a robust object that 
+has its own attributes and behaviors.
 
 For example, in the code above, we are calling the `#name` method on the artist
-of `kiki`. With method chaining like this, we can do even more
-with our code.
+instance `kiki`. With method chaining like this, we can do even more with 
+our code.
+
+## The "has-many" Relationship
 
 The inverse of the "belongs-to" relationship is the "has-many" relationship. If
 a song belongs to an artist, then an artist should be able to _have many_ songs.
-This makes sense in the real-world––most musical artists have authored and
+This makes sense in the real world––most musical artists have authored and
 performed many more than one song.
-
-Let's take a closer look.
-
-## The "has-many" Relationship
 
 How can we represent an object's "having many" of something? Well, having many
 of something means you own a collection of that thing. Ruby offers us a great
@@ -143,7 +141,7 @@ drake.add_song("In My Feelings")
 drake.add_song("Hotline Bling")
 ```
 
-Now we need a method that will allow a given artist to show us all of the songs
+Next we need a method that will allow a given artist to show us all of the songs
 in their collection. Let's do it.
 
 ### Exposing the Collection
@@ -170,7 +168,7 @@ class Artist
 end
 ```
 
-The `#songs` method simply return the `@songs` array, which contains the list of
+The `#songs` method simply returns the `@songs` array, which contains the list of
 songs that the artist has many of.
 
 Let's try it out:
@@ -238,7 +236,7 @@ Although we do have an `attr_accessor` for `artist` in our `Song` class, this
 particular song doesn't seem to know that it belongs to Drake. That is because
 our `#add_song` method only accomplished associating the song object to the
 artist object. Our artist knows it has a collection of songs and knows how to
-add songs to that collection. But, we didn't tell the song that we added to the
+add songs to that collection. But, we didn't tell the song we added to the
 artist that it belonged to that artist.
 
 <p align="center">
@@ -399,9 +397,9 @@ Song.all.last.artist #=> #<Artist:0x00007ff1d90dbf38 @name="Rick Astley", @songs
 Song.all.last.artist.name #=> "Rick Astley"
 ```
 
-Now that we've got a way to get all songs, if we make sure to let every song
-know its artist, if we want to find all the songs that belong to a particular
-artist, we can just _select_ the appropriate songs:
+Now we've got a way to get all songs, so as long as we make sure to let every 
+song know its artist, if we want to find all the songs that belong to a particular
+artist we can just _select_ the appropriate songs:
 
 ```ruby
 Song.all.select {|song| song.artist == lil_nas_x}
@@ -427,10 +425,11 @@ end
 ```
 
 This is an instance method, so we can use `self` to represent the `Artist`
-instance this method is called on. This changes the rest of the class - if we
-can just get the necessary information selecting from `Song.all`, we no longer
-need the `@songs` instance variable in our `Artist` class. We can get rid of
-We can also update `#add_song` accordingly:
+instance this method is called on. 
+
+Now that we can get the necessary information by selecting from `Song.all`, 
+we no longer need the `@songs` instance variable in our `Artist` class. 
+We can get rid of that and update `#add_song` accordingly:
 
 ```ruby
 class Artist
@@ -482,8 +481,8 @@ never_gonna_give_you_up.artist #=> #<Artist:0x00007fb46a903000 @name="Rick Astle
 
 The code we have so far is pretty good. The best thing about it though is that
 it accommodates future change. We've built solid associations between our
-`Artist` and `Song` class via our has many/belongs to code. With this foundation
-we can make our code even better in the following ways:
+`Artist` and `Song` classes via our has many/belongs to code. With this 
+foundation we can make our code even better in the following ways:
 
 ### The `#add_song_by_name` Method
 
@@ -509,18 +508,17 @@ class Artist
   end
 ```
 
-Here we use the logic of our original `#add_song` method, which adds a song to
-an artist's collection and tells that song that it belongs to that particular
-artist. But, we also create a new song using the name and genre from the
-arguments.
+Here we tell the song that it belongs to the artist, just as we do in our 
+`#add_song` method, and we also create a new song instance using the name 
+and genre from the arguments.
 
 <p align="center">
   <img src="https://curriculum-content.s3.amazonaws.com/module-1/ruby-oo-relationships/has-many/Image_138_CodeObjectsConvo%28C%29.png" alt="belongs to" width="500"/>
 </p>
 
-This is not only neater and more elegant––now we don't have to create a new song
-on a separate line *every time* we want to add one to an artist––but it makes
-more sense.
+This is not only neater and more elegant––we no longer have to create a new 
+song on a separate line *every time* we want to add one to an artist––but it 
+makes more sense.
 
 ### The `#artist_name` Method
 
@@ -559,17 +557,17 @@ kiki.artist_name
 
 Much better. Notice that we used the `self` keyword inside the `#artist_name`
 method to refer to the instance of `Song` on which the method is being called.
-Then we call `#artist` on that song instance. This would return the `Artist`
+Then we call `#artist` on that song instance. This returns the `Artist`
 instance associated with the song. Chaining a call to `#name` after that is
 equivalent to saying: call `#name` on the return value of `self.artist`, i.e.
 call `#name` on the artist of this song.
 
 ## Conclusion
 
-Using the foundation of a "has-many" / "belongs-to" associations, we can create
+Using the foundation of "has-many" / "belongs-to" associations, we can create
 many different useful methods. We can write methods like `add_song_by_name`
 that handle initializing and associating instances. We can also create methods
-like `artist_name`, that can simplify retrieving information from an associated
+like `artist_name` that can simplify retrieving information from an associated
 instance.
 
 Establishing both "has-many" and "belongs-to" associations between two objects
