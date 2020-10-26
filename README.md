@@ -239,10 +239,7 @@ artist object. Our artist knows it has a collection of songs and knows how to
 add songs to that collection. But, we didn't tell the song we added to the
 artist that it belonged to that artist.
 
-<p align="center">
-  <img src="https://curriculum-content.s3.amazonaws.com/module-1/ruby-oo-relationships/has-many/Image_138_CodeObjectsConvo%28A%29.png" alt="belongs to" width="500"/>
-</p>
-
+![belongs to](https://curriculum-content.s3.amazonaws.com/module-1/ruby-oo-relationships/has-many/Image_138_CodeObjectsConvo%28A%29.png)
 
 Let's fix that now. Telling a song that it belongs to an artist should happen
 when that song is added to the artist's `@songs` collection. Consequently, we
@@ -340,9 +337,7 @@ songs. Rather than have each artist keep track of their own songs, if we had
 access to a list of _all of the songs by all artists_, we could just query that
 list by asking for all songs that belong to a given artist.
 
-<p align="center">
-  <img src="https://curriculum-content.s3.amazonaws.com/module-1/ruby-oo-relationships/has-many/Image_138_CodeObjectsConvo%28B%29.png" alt="belongs to" width="500"/>
-</p>
+![belongs to](https://curriculum-content.s3.amazonaws.com/module-1/ruby-oo-relationships/has-many/Image_138_CodeObjectsConvo%28B%29.png)
 
 This may become clearer if we make some updates to `Song` and `Artist`. Say, for
 instance, in `Song`, we set up a class variable, `@@all`, set to an empty Array,
@@ -512,9 +507,7 @@ Here we tell the song that it belongs to the artist, just as we do in our
 `#add_song` method, and we also create a new song instance using the name 
 and genre from the arguments.
 
-<p align="center">
-  <img src="https://curriculum-content.s3.amazonaws.com/module-1/ruby-oo-relationships/has-many/Image_138_CodeObjectsConvo%28C%29.png" alt="belongs to" width="500"/>
-</p>
+![belongs to](https://curriculum-content.s3.amazonaws.com/module-1/ruby-oo-relationships/has-many/Image_138_CodeObjectsConvo%28C%29.png)
 
 This is not only neater and more elegant––we no longer have to create a new 
 song on a separate line *every time* we want to add one to an artist––but it 
@@ -574,5 +567,3 @@ Establishing both "has-many" and "belongs-to" associations between two objects
 allows us to ask a song who its artist is, and ask an artist what their songs
 are. We've established a bi-directional relationship! Can you think of any other
 real world relationships where these associations could be applied?
-
-<p class='util--hide'>View <a href='https://learn.co/lessons/ruby-objects-has-many-readme'>Has Many Object</a> on Learn.co and start learning to code for free.</p>
