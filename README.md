@@ -1,4 +1,4 @@
-# Ruby Objects: The "Has-Many" Relationship
+# Has Many Relationships
 
 ## Objectives
 
@@ -332,7 +332,7 @@ of truth about artists and their songs, and they're not aligned.
 A better way to approach this would be to figure out how to maintain our
 "has-many" / "belongs-to" relationship _on only one side of the relationship_.
 
-Think about it this way - imagine we have many artists, each with their own
+Think about it this way &mdash; imagine we have many artists, each with their own
 songs. Rather than have each artist keep track of their own songs, if we had
 access to a list of _all of the songs by all artists_, we could just query that
 list by asking for all songs that belong to a given artist.
@@ -509,8 +509,8 @@ and genre from the arguments.
 
 ![belongs to](https://curriculum-content.s3.amazonaws.com/module-1/ruby-oo-relationships/has-many/Image_138_CodeObjectsConvo%28C%29.png)
 
-This is not only neater and more elegant––we no longer have to create a new 
-song on a separate line *every time* we want to add one to an artist––but it 
+This is not only neater and more elegant &mdash; we no longer have to create a new 
+song on a separate line *every time* we want to add one to an artist &mdash; but it 
 makes more sense.
 
 ### The `#artist_name` Method
