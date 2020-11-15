@@ -3,7 +3,8 @@
 ## Objectives
 
 - Describe the "has many" relationship between Ruby objects.
-- Build classes that produce objects with a "belongs-to" and "has-many" relationship.
+- Build classes that produce objects with a "belongs-to" and "has-many"
+  relationship.
 - Explain why we need to associate objects in this way.
 
 ## Introduction
@@ -44,8 +45,8 @@ class Artist
 end
 ```
 
-We can set the artist attribute of an individual instance of `Song` equal 
-to an instance of the `Artist` class like this:
+We can set the artist attribute of an individual instance of `Song` equal to an
+instance of the `Artist` class like this:
 
 ```ruby
 kiki = Song.new("In My Feelings", "hip-hop")
@@ -57,14 +58,14 @@ kiki.artist.name
   # => "Drake"
 ```
 
-We could just set the `artist` attribute equal to a simple string. However, 
-by using the `artist=` method to set the attribute equal to a real instance 
-of the `Artist` class, we are associating our song to a robust object that 
-has its own attributes and behaviors.
+We could just set the `artist` attribute equal to a simple string. However, by
+using the `artist=` method to set the attribute equal to a real instance of the
+`Artist` class, we are associating our song to a robust object that has its own
+attributes and behaviors.
 
 For example, in the code above, we are calling the `#name` method on the artist
-instance `kiki`. With method chaining like this, we can do even more with 
-our code.
+instance `kiki`. With method chaining like this, we can do even more with our
+code.
 
 ## The "has-many" Relationship
 
@@ -141,8 +142,8 @@ drake.add_song("In My Feelings")
 drake.add_song("Hotline Bling")
 ```
 
-Next we need a method that will allow a given artist to show us all of the songs
-in their collection. Let's do it.
+Next we need a methqod that will allow a given artist to show us all of the
+songs in their collection. Let's do it.
 
 ### Exposing the Collection
 
@@ -191,9 +192,9 @@ talking about.
 This is the limitation of one-sided relationships. Just like associating a given
 song to a string that contains an artist's name instead of to a real `Artist`
 instance had its drawbacks, so too does associating a given artist to a list of
-strings. With this setup, we are limited to references to a given artist's
-songs by their name alone. We cannot associate any further information to an
-artist's songs or enact any further behavior on an artist's songs.
+strings. With this setup, we are limited to references to a given artist's songs
+by their name alone. We cannot associate any further information to an artist's
+songs or enact any further behavior on an artist's songs.
 
 Let's fix this now. Instead of calling the `#add_song`  method with an argument
 of a string, let's call that method with an argument of a real song object:
@@ -212,8 +213,8 @@ drake.songs
 Great, now our artist has many songs that are real, tangible `Song` instances,
 not just strings.
 
-We can do several useful things with this collection of real song objects,
-such as iterate over them and collect their genres:
+We can do several useful things with this collection of real song objects, such
+as iterate over them and collect their genres:
 
 ```ruby
 drake.songs.collect do |song|
@@ -311,7 +312,11 @@ With this implementation, we're maintaining this relationship on both the `Song`
 instance and the `Artist` instance. We've done this so that an artist knows
 which songs it has, and a song knows the artist it belongs to. However, keeping
 this information maintained on both sides of the relationship means there are
-**_two sources of truth_**. What happens if we _don't_ consistently use the
+**_two sources of truth_**: the song's knowledge of who its artist is
+(established by using the `artist=` method) and the artist's knowledge of which
+songs it has (established by adding songs into the artist's `@songs` array).
+
+So why is this a problem? Well, what happens if we _don't_ consistently use the
 `add_song` method? What if, instead, somewhere along the lines we did something
 like this:
 
@@ -326,23 +331,22 @@ lil_nas_x.songs #=> []
 ```
 
 Now, the `Song` instance `old_town_road` is associated with an artist, but
-`lil_nas_x` **_does not know about_** `old_town_road`. We have multiple sources
-of truth about artists and their songs, and they're not aligned.
+`lil_nas_x` **_does not know about_** `old_town_road` because the song was not
+added to `lil_nas_x`'s `@songs` array. We have multiple sources of truth about
+artists and their songs, and they're not aligned.
 
 A better way to approach this would be to figure out how to maintain our
 "has-many" / "belongs-to" relationship _on only one side of the relationship_.
-
-Think about it this way &mdash; imagine we have many artists, each with their own
-songs. Rather than have each artist keep track of their own songs, if we had
-access to a list of _all of the songs by all artists_, we could just query that
-list by asking for all songs that belong to a given artist.
+We can do that by having the `Song` class keep a list of _all of the songs by
+all artists_, and writing the `#songs` method in our Artist class to query that
+list by asking for the songs that belong to a given artist.
 
 ![belongs to](https://curriculum-content.s3.amazonaws.com/module-1/ruby-oo-relationships/has-many/Image_138_CodeObjectsConvo%28B%29.png)
 
 This may become clearer if we make some updates to `Song` and `Artist`. Say, for
 instance, in `Song`, we set up a class variable, `@@all`, set to an empty Array,
 and a getter method, `.all`. This way, when a song is initialized, we can push
-the instance into the `@@all` and be able to use `Song.all` to retrieve all
+the instance into the `@@all` array and then use `Song.all` to retrieve all
 `Song` instances:
 
 ```ruby
@@ -392,9 +396,9 @@ Song.all.last.artist #=> #<Artist:0x00007ff1d90dbf38 @name="Rick Astley", @songs
 Song.all.last.artist.name #=> "Rick Astley"
 ```
 
-Now we've got a way to get all songs, so as long as we make sure to let every 
-song know its artist, if we want to find all the songs that belong to a particular
-artist we can just _select_ the appropriate songs:
+Now we've got a way to get all songs, so as long as we make sure to let every
+song know its artist, if we want to find all the songs that belong to a
+particular artist we can just _select_ the appropriate songs:
 
 ```ruby
 Song.all.select {|song| song.artist == lil_nas_x}
@@ -419,12 +423,12 @@ class Artist
 end
 ```
 
-This is an instance method, so we can use `self` to represent the `Artist`
-instance this method is called on. 
+Because `#songs` is an instance method, we can use `self` to represent the
+`Artist` instance this method is called on.
 
-Now that we can get the necessary information by selecting from `Song.all`, 
-we no longer need the `@songs` instance variable in our `Artist` class. 
-We can get rid of that and update `#add_song` accordingly:
+Now that we can get the necessary information by selecting from `Song.all`, we
+no longer need the `@songs` instance variable in our `Artist` class. Let's get
+rid of that so, with the change to `#add_song`, our code now looks like this:
 
 ```ruby
 class Artist
@@ -449,7 +453,12 @@ relationship while maintaining a single source of truth! Not only that, we were
 able to simplify the `Artist` class without losing any functionality!
 
 Now, let's go back to the original example in this section. With our new setup,
-the issue of maintaining both sides of the relationship is solved:
+the issue of maintaining both sides of the relationship is solved. Simply by
+telling the song instance which artist it belongs to &mdash; either by using the
+Song class's `artist=` method or the Artist class's `add_song` method &mdash; we
+are able to access the list of songs that belong to a given artist.
+
+Calling the `artist=` method on a Song instance:
 
 ```ruby
 lil_nas_x = Artist.new("Lil Nas X")
@@ -461,7 +470,7 @@ old_town_road.artist.name #=> "Lil Nas X"
 lil_nas_x.songs #=> [#<Song:0x00007fb46b0a1c08 @name="Old Town Road", @genre="hip-hop", @artist=#<Artist:0x00007fb46b0e3748 @name="Lil Nas X">>]
 ```
 
-And `add_song` functions just as it did before:
+Calling the `add_song` method on an Artist instance:
 
 ```ruby
 rick = Artist.new("Rick Astley")
@@ -476,7 +485,7 @@ never_gonna_give_you_up.artist #=> #<Artist:0x00007fb46a903000 @name="Rick Astle
 
 The code we have so far is pretty good. The best thing about it though is that
 it accommodates future change. We've built solid associations between our
-`Artist` and `Song` classes via our has many/belongs to code. With this 
+`Artist` and `Song` classes via our has many/belongs to code. With this
 foundation we can make our code even better in the following ways:
 
 ### The `#add_song_by_name` Method
@@ -503,15 +512,15 @@ class Artist
   end
 ```
 
-Here we tell the song that it belongs to the artist, just as we do in our 
-`#add_song` method, and we also create a new song instance using the name 
-and genre from the arguments.
+Here we tell the song that it belongs to the artist, just as we do in our
+`#add_song` method, and we also create a new song instance using the name and
+genre from the arguments.
 
 ![belongs to](https://curriculum-content.s3.amazonaws.com/module-1/ruby-oo-relationships/has-many/Image_138_CodeObjectsConvo%28C%29.png)
 
-This is not only neater and more elegant &mdash; we no longer have to create a new 
-song on a separate line *every time* we want to add one to an artist &mdash; but it 
-makes more sense.
+This is not only neater and more elegant &mdash; we no longer have to create a
+new song on a separate line *every time* we want to add one to an artist &mdash;
+but it makes more sense.
 
 ### The `#artist_name` Method
 
