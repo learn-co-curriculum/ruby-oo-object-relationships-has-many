@@ -456,6 +456,8 @@ With this implementation, we're able to achieve a "has-many" / "belongs-to"
 relationship while maintaining a single source of truth! Not only that, we were
 able to simplify the `Artist` class without losing any functionality!
 
+![belongs to](https://curriculum-content.s3.amazonaws.com/module-1/ruby-oo-relationships/has-many/Image_138_CodeObjectsConvo%28C%29.png)
+
 Now, let's go back to the original example in this section. With our new setup,
 the issue of maintaining both sides of the relationship is solved. Simply by
 telling the song instance which artist it belongs to, we are able to access the
@@ -519,8 +521,6 @@ class Artist
 Here we tell the song that it belongs to the artist, just as we do in our
 `#add_song` method, and we also create a new song instance using the name and
 genre from the arguments.
-
-![belongs to](https://curriculum-content.s3.amazonaws.com/module-1/ruby-oo-relationships/has-many/Image_138_CodeObjectsConvo%28C%29.png)
 
 This is not only neater and more elegant &mdash; we no longer have to create a
 new song on a separate line *every time* we want to add one to an artist &mdash;
