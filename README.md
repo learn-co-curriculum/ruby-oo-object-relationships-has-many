@@ -341,13 +341,13 @@ added to `lil_nas_x`'s `@songs` array. We have two sources of truth about
 artists and their songs &mdash; one from the artist side and one from the song
 side &mdash; and they're not aligned.
 
+![belongs to](https://curriculum-content.s3.amazonaws.com/module-1/ruby-oo-relationships/has-many/Image_138_CodeObjectsConvo%28B%29.png)
+
 A better way to approach this would be to figure out how to maintain our
 "has-many" / "belongs-to" relationship _on only one side of the relationship_.
 We can do that by having the `Song` class keep a list of _all of the songs by
 all artists_, and writing the `#songs` method in our Artist class to query that
 list, asking for the songs that belong to a given artist.
-
-![belongs to](https://curriculum-content.s3.amazonaws.com/module-1/ruby-oo-relationships/has-many/Image_138_CodeObjectsConvo%28B%29.png)
 
 This may become clearer if we make some updates to `Song` and `Artist`. Say, for
 instance, in `Song`, we set up a class variable, `@@all`, set to an empty Array,
